@@ -1,3 +1,5 @@
+use std::rand::{self, Rng};
+
 use crossterm::event::{DisableBracketedPaste, EnableBracketedPaste};
 use crossterm::execute;
 
@@ -1521,7 +1523,13 @@ impl Reedline {
             None => Ok(()),
             Some(BufferEditor { editor, extension }) => {
                 let temp_directory = std::env::temp_dir();
-                let temp_file = temp_directory.join(format!("reedline_buffer.{extension}"));
+                let random_buffer_name = rand::thread_rng()
+                    .gen_ascii_chars()
+                    .take(30)
+                    .collect::<String>();
+                let temp_file = temp_directory
+                    .join("reedline_buffers")
+                    .join(format!("{random_buffer_name}.{extension}"));
 
                 {
                     let mut file = File::create(temp_file.clone())?;
