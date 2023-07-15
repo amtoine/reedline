@@ -1,4 +1,4 @@
-use std::rand::{self, Rng};
+use rand::{self, Rng};
 
 use crossterm::event::{DisableBracketedPaste, EnableBracketedPaste};
 use crossterm::execute;
